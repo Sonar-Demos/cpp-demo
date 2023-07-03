@@ -77,7 +77,8 @@ Useful link: https://docs.sonarcloud.io/
 
 ## 🛫 Getting Started
 
-* Fork this project *with all branches* (not the default, only `main`).
+* Fork this project *with all branches*
+  (untick the default checkbox, "Copy the `main` branch only").
 * TODO: is a GitHub action necessary?
 * Go to "Pull requests->New pull request" and opan a pull request from the
   `add-feature` branch to the `main` branch of your fork.
@@ -97,22 +98,24 @@ Useful link: https://docs.sonarcloud.io/
 
 ## 👷 CI-based analysis on SonarCloud with coverage display
 
+* Click ⚙ "Administration" on the bottom-left and select "Analysis Method"
+* Disable the "Automatic Analysis" switch.
 * Generate a SonarCloud token:
   * Click on your profile picture in the top-right corner and select "My Account".
   * Select the "Security" tab.
   * Enter a token name (e.g. `cpp-demo`), and click on "Generate Token"
   * Copy the token to clipboard
 * Enter the token to the repository secrets on GitHub
-  * Select the "Settings" tab of your repository
+  * Select the ⚙ "Settings" tab of your repository
   * Select the "Secrets and variables"/"Actions" section
   * Click on "New Repository Secret"
   * Enter the name of the secret: `SONAR_TOKEN`
   * Paste the secret from the previous step.
   * Click "Add Secret".
 * Checkout the `enable-ci-analysis` branch.
-* In "sonar-project.properties" change the `sonar.projectKey` and
+* In "sonar-project.properties" file change the `sonar.projectKey` and
   `sonar.organization` to use your orgnization name (your GitHub username).
-* Commit, push, and merge the branch into `main`
+* Commit, push, and merge the branch into `main` (careful: select yor fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
 
 ## ⚡ SonarLint: Fix issues before they exist
@@ -132,7 +135,7 @@ Useful link: https://docs.sonarcloud.io/
 To prepare for the next demo, you should delete the project from SonarCloud:
 
 * Open the demo-cpp project.
-* Click on "Administration" in the bottom-left corner, and select "Deletion".
+* Click on ⚙ "Administration" in the bottom-left corner, and select "Deletion".
 * click on "Delete" and confirm it by entering your project name.
 
 You might also want to delete it from you GitHub account
