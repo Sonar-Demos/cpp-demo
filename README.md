@@ -98,6 +98,8 @@ Useful link: https://docs.sonarcloud.io/
 
 ## 👷 CI-based analysis on SonarCloud with coverage display
 
+This step assumes you have added the project to SonarCloud and ran automatic analysis (see previous step).
+
 * Click ⚙ "Administration" on the bottom-left and select "Analysis Method"
 * Disable the "Automatic Analysis" switch.
 * Generate a SonarCloud token:
@@ -117,6 +119,14 @@ Useful link: https://docs.sonarcloud.io/
   `sonar.organization` to use your orgnization name (your GitHub username).
 * Commit, push, and merge the branch into `main` (careful: select yor fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
+
+Note that the total number of issues has reduced, because CI-based analysis analyses only the code
+and configuration that you compile.
+If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
+
+TODO: highlight an appearing issue and explain why
+
+TODO: show coverage and explain why it has appeared
 
 ## ⚡ SonarLint: Fix issues before they exist
 
