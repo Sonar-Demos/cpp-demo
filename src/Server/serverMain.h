@@ -1,5 +1,6 @@
 #pragma once
 #include "Database.h"
+#include <wait.h>
 #include <string>
 #define PORT 3000
 #define MAX_THREADS 100

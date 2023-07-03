@@ -22,4 +22,5 @@ target_include_directories(server PRIVATE
     ${json-c_SOURCE_DIR})
 
 target_link_libraries(server
-    json-c)
+    json-c
+    pthread)
