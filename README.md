@@ -98,15 +98,15 @@ Useful link: https://docs.sonarcloud.io/
 
 ## ⚡ SonarLint: Fix issues before they exist
 
-### CLion
+### 🦭 CLion
 
-### Visual Studio Code
+### ⌨ Visual Studio Code
 
-### Show rule description
+### 📄 Show rule description
 
-### Quick Fix
+### 🪛 Quick Fix
 
-### Synchronize isues between SonarCloud and SonarLint
+### 🔌 Synchronize isues between SonarCloud and SonarLint
 
 # 🛬 Teardown 
 
@@ -115,3 +115,6 @@ To prepare for the next demo, you should delete the project from SonarCloud:
 * Open the demo-cpp project.
 * Click on "Administration" in the bottom-left corner, and select "Deletion".
 * click on "Delete" and confirm it by entering your project name.
+
+You might also want to delete it from you GitHub account
+At the bottom of this page: "https://github.com/<your-account>/cpp-demo/settings"
