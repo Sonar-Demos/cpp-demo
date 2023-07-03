@@ -13,6 +13,7 @@ if(MACOS)
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(server
     src/Server/serverReadsProfiler.cpp)

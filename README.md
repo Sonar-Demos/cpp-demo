@@ -97,6 +97,24 @@ Useful link: https://docs.sonarcloud.io/
 
 ## 👷 CI-based analysis on SonarCloud with coverage display
 
+* Generate a SonarCloud token:
+  * Click on your profile picture in the top-right corner and select "My Account".
+  * Select the "Security" tab.
+  * Enter a token name (e.g. `cpp-demo`), and click on "Generate Token"
+  * Copy the token to clipboard
+* Enter the token to the repository secrets on GitHub
+  * Select the "Settings" tab of your repository
+  * Select the "Secrets and variables"/"Actions" section
+  * Click on "New Repository Secret"
+  * Enter the name of the secret: `SONAR_TOKEN`
+  * Paste the secret from the previous step.
+  * Click "Add Secret".
+* Checkout the `enable-ci-analysis` branch.
+* In "sonar-project.properties" change the `sonar.projectKey` and
+  `sonar.organization` to use your orgnization name (your GitHub username).
+* Commit, push, and merge the branch into `main`
+* After a couple of minutes, you should be able to see the analysis results on SonarCloud
+
 ## ⚡ SonarLint: Fix issues before they exist
 
 ### 🦭 CLion
