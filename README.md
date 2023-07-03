@@ -84,7 +84,8 @@ Useful link: https://docs.sonarcloud.io/
   Be careful: by default, the PR targets the upstream repository.
 * TODO: Should a GitHub action run here?
 * Go to https://sonarcloud.io/sessions/new and sign up with your GitHub account.
-* Create a new organization under name and give SonarCloud permission to see the forked repository.
+* Create a new organization under your name if there is none.
+* Give SonarCloud permission to see the forked repository.
 
 # 🎥 Demo
 
