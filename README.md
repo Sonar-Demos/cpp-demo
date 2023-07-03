@@ -32,9 +32,10 @@ This legacy application contains a "main" branch with the existing code.
 It also contains an "add-feature" branch that represents a new feature we want to develop for the application.
 
 The full set-up can either be done as part of the demo (takes about 15 minutes), or beforehand.
-A branch "enable-ci-analysis" is available to move from Automatic Analysis to a CI-based analysis, with import of code coverage information.
+A branch "enable-ci-analysis" is available to move from Automatic Analysis to a CI-based analysis,
+with the import of code coverage information.
 
-Once the repository is fully set-up, you can observer the concept of PR Quality Gate on new code
+Once the repository is fully set up, you can observe the concept of PR Quality Gate on new code
 and its independence from the main code issues.
 The application features basic, yet varied, issue types that can be detected by SonarCloud. In the PR, we have:
 
@@ -59,8 +60,12 @@ When setting up CI-based analysis, import of code coverage will be done by defau
 To demo SonarLint you can also clone this project to show the issues in SonarLint.
 Some of the issues have quick fixes for them.
 
-You can show the conected mode by simply following the tutorial in the IDE,
-which allow to synchronize silenced issues/custom quality profiles/additional cross-TU issues.
+You can show the connected mode by simply following the tutorial in the IDE,
+which allows
+
+- the synchronization of silenced issues,
+- custom quality profiles, and
+- additional cross-TU issues.
 
 # 🛠 Building and running the application
 
@@ -69,7 +74,7 @@ TODO
 # 📝 Setup instructions
 
 We are going to set up a SonarCloud analysis on this project.
-We will visualise issues on the main branch and on pull requests and see how PRs get decorated automatically.
+We will visualize issues on the main branch and on pull requests and see how PRs get decorated automatically.
 
 We will then set up a CI-based analysis and import code coverage information into the SonarCloud UI.
 
@@ -80,7 +85,7 @@ Useful link: https://docs.sonarcloud.io/
 * Fork this project *with all branches*
   (untick the default checkbox, "Copy the `main` branch only").
 * TODO: is a GitHub action necessary?
-* Go to "Pull requests->New pull request" and opan a pull request from the
+* Go to "Pull requests->New pull request" and open a pull request from the
   `add-feature` branch to the `main` branch of your fork.
   Be careful: by default, the PR targets the upstream repository.
 * TODO: Should a GitHub action run here?
@@ -96,9 +101,11 @@ Useful link: https://docs.sonarcloud.io/
 * Select the forked repository.
 * Click "Set Up"
 
-## 👷 CI-based analysis on SonarCloud with coverage display
+## 👷 CI-based analysis on SonarCloud with a coverage display
 
-This step assumes you have added the project to SonarCloud and ran automatic analysis (see previous step).
+This step assumes you have added the project to SonarCloud and executed automatic analysis (see previous step).
+
+For examples of CI-based analysis on other platforms, see https://github.com/sonarsource-cfamily-examples
 
 * Click ⚙ "Administration" on the bottom-left and select "Analysis Method"
 * Disable the "Automatic Analysis" switch.
@@ -116,12 +123,13 @@ This step assumes you have added the project to SonarCloud and ran automatic ana
   * Click "Add Secret".
 * Checkout the `enable-ci-analysis` branch.
 * In "sonar-project.properties" file change the `sonar.projectKey` and
-  `sonar.organization` to use your orgnization name (your GitHub username).
+  `sonar.organization` to use your organization name (your GitHub username).
 * Commit, push, and merge the branch into `main` (careful: select yor fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
 
-Note that the total number of issues has reduced, because CI-based analysis analyses only the code
-and configuration that you compile.
+Note that the total number of issues has reduced
+because CI-based analysis analyses only the code you compile
+in the configuration that you provide.
 If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
 
 TODO: highlight an appearing issue and explain why
@@ -138,7 +146,7 @@ TODO: show coverage and explain why it has appeared
 
 ### 🪛 Quick Fix
 
-### 🔌 Synchronize isues between SonarCloud and SonarLint
+### 🔌 Synchronize issues between SonarCloud and SonarLint
 
 # 🛬 Teardown 
 
@@ -148,5 +156,5 @@ To prepare for the next demo, you should delete the project from SonarCloud:
 * Click on ⚙ "Administration" in the bottom-left corner, and select "Deletion".
 * click on "Delete" and confirm it by entering your project name.
 
-You might also want to delete it from you GitHub account
-At the bottom of this page: "https://github.com/<your-account>/cpp-demo/settings"
+You might also want to delete it from your GitHub account
+Click the button at the bottom of the ⚙ "Settings": `https://github.com/<your-account>/cpp-demo/settings`
