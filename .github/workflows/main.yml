@@ -1,3 +1,6 @@
+# This is but one example of build and analysis configuration
+# You can find examples for other platforms, build tools, and CI systems here:
+# https://github.com/sonarsource-cfamily-examples
 name: Build
 on:
   push:
