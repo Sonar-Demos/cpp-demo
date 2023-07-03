@@ -1,0 +1,38 @@
+[
+    {
+        "isbn" : 0,
+        "title" : "sample0_title",
+        "author" : "sample0_author",
+        "genre" : "comedy",
+        "year" : 2019,
+        "rating" : 4,
+        "diskPath" : "./data/books/0.txt"
+    },
+    {
+        "isbn" : 1,
+        "title" : "sample1_title",
+        "author" : "sample1_author",
+        "genre" : "drama",
+        "year" : 2019,
+        "rating" : 1,
+        "diskPath" : "./data/books/1.txt"
+    },
+    {
+        "isbn" : 2,
+        "title" : "sample2_title",
+        "author" : "sample2_author",
+        "genre" : "fantasy",
+        "year" : 2019,
+        "rating" : 1,
+        "diskPath" : "./data/books/2.txt"
+    },
+    {
+        "isbn" : 3,
+        "title" : "sample3_title",
+        "author" : "sample3_author",
+        "genre" : "manual",
+        "year" : 2019,
+        "rating" : 1,
+        "diskPath" : "./data/books/3.txt"
+    }
+]
