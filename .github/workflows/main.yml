@@ -32,7 +32,7 @@ jobs:
         run: |
           mkdir build
           cmake -S . -B build
-          cmake --build build
+          cmake --build build -- unit_tests
           ./build/unit_tests
           gcovr --sonarqube > coverage.xml
       - name: Run sonar-scanner
