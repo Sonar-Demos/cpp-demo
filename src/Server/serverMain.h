@@ -91,6 +91,9 @@ class Server
         //Maximum number of book entries that can be sent to the requesting user.
         int maxEntries;
 
+        //The state of the server: is it still running or not.
+        bool running;
+
         //Address to the array containing the query entries resulted from the user's filter
         DBResult *sentInfo;
         

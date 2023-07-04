@@ -99,6 +99,12 @@ Useful link: https://docs.sonarcloud.io/
 * Select the forked repository.
 * Click "Set Up"
 
+Note two things, useful for the following step:
+
+* Among the many detected issues,
+  there is no report for [S1068: Unused "private" fields should be removed](https://rules.sonarsource.com/cpp/RSPEC-1068/).
+* Test-coverage metric is not computed.
+
 ## 👷 CI-based analysis on SonarCloud with a coverage display
 
 This step assumes you have added the project to SonarCloud and executed automatic analysis (see previous step).
@@ -129,10 +135,21 @@ Note that the total number of issues has reduced
 because CI-based analysis analyses only the code you compile
 in the configuration that you provide.
 If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
+In particular, in this project, the "src/Client" target is not compiled automatically
+on CI, so it is abscent in the compilation database and concequently not analyzed.
 
-TODO: highlight an appearing issue and explain why
+Note also that some issues appeared.
+For example, the code smell: [S1068: Unused "private" fields should be removed](https://rules.sonarsource.com/cpp/RSPEC-1068/).
+These issues cannot be confidently detected because they require knowledge of all places where the field might be used.
+On one hand, if the automatic analysis could not figure out how to reach the place that uses the field,
+it will miss it and falsely report a violation of this rule.
+On the other hand, CI-based analysis is precise, it knows as much as your compiler.
+If a field isn't used in any code that is compiled, it is not used in your application,
+at least when it is built with the given configuration.
 
-Note that now you can see the test coverage of the code.
+![Appearing issue in CI-based analysis](img/appearing-issue-CI-analysis.png)
+
+Note also that now you can see the test coverage of the code.
 At the moment CI-based or manual analysis is the only way
 to display test coverage on SonarCloud or SonarQube.
 This is because to gather test coverage, you will need to run the
