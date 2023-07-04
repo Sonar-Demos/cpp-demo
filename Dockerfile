@@ -24,4 +24,5 @@ RUN apt-get update \
       libjson-c5 \
       qtdeclarative5-dev \
       libpoppler-qt5-dev \
+      gcovr \
   && apt-get clean

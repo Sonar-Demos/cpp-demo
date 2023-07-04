@@ -3,13 +3,13 @@
   - Generate compilation database with `Bear make`
   - "Open folder" in VS Code (with SonarLine plugin installed). auto-configured the compilation DB produced by Bear
 - [ ] TODO: quickfix
-- [ ] TODO: SC autoscan
+- [X] SC autoscan
   - clone the repository, add it to SonarCloud. the autoscan should start and finish quickly
-- [ ] TODO: SC CI-based. show the difference
+- [X] SC CI-based. show the difference
   - prepare a branch with configured analysis, using build-wrapper.
     Also mention compilation database.
   - Show a new issue produced once the branch with analysis is merged and the GH Action finishes.
-  - [ ] TODO: Coverage import
+  - [X] Coverage generation and import
 - [ ] TODO: PR analysis. CaYC
   - Prepare a PR with different issues.
     Demonstrate that the quality gate mentions only the the issues on the changed and added code.
@@ -39,21 +39,21 @@ Once the repository is fully set up, you can observe the concept of PR Quality G
 and its independence from the main code issues.
 The application features basic, yet varied, issue types that can be detected by SonarCloud. In the PR, we have:
 
-[//]: # * A simple bug with no secondary locations
+TODO: # * A simple bug with no secondary locations
 
-[//]: # * A bug with a secondary location in another file
+TODO: # * A bug with a secondary location in another file
 
-[//]: # * A bug with an execution flow
+TODO: # * A bug with an execution flow
 
-[//]: # * A bug with multiple flows
+TODO: # * A bug with multiple flows
 
-[//]: # * A "bad practice" code smell
+TODO: # * A "bad practice" code smell
 
-[//]: # * A stylistic code smell
+TODO: # * A stylistic code smell
 
 Additionally, we have a security hotspot on the main branch:
 
-[//]: # * A slow regular expression, vulnerable to catastrophic backtracking
+TODO: # * ???
 
 When setting up CI-based analysis, import of code coverage will be done by default (in the "enable-ci-analysis" branch).
 
@@ -84,11 +84,9 @@ Useful link: https://docs.sonarcloud.io/
 
 * Fork this project *with all branches*
   (untick the default checkbox, "Copy the `main` branch only").
-* TODO: is a GitHub action necessary?
 * Go to "Pull requests->New pull request" and open a pull request from the
   `add-feature` branch to the `main` branch of your fork.
   Be careful: by default, the PR targets the upstream repository.
-* TODO: Should a GitHub action run here?
 * Go to https://sonarcloud.io/sessions/new and sign up with your GitHub account.
 * Create a new organization under your name if there is none.
 * Give SonarCloud permission to see the forked repository.
