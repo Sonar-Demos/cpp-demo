@@ -10,13 +10,13 @@
 #define MAX_USERS 50
 #define NO_DEFINED_PROTOCOL 0
 #define MAX_CLIENTS_IN_QUEUE 10
-#define MAXSTRLEN 256
 
 /**
  * @brief  Enum containing report ids, used for readability.  
 */
 enum reports{
     socketError, bindError, listenError, acceptError,
+    noUserError,
     serverPortWait, threadMessageWait, threadReadError,
     threadReadSuccess,threadWriteNotify,threadWriteError,
     threadWriteSuccess, threadLogonSuccessful, threadLogonFailCapacity,
@@ -113,8 +113,10 @@ class Server
          * Removes the username of the user that has just disconnected from the server's connected users list
          * 
          * @param username string containing the name of the user who has just disconnected
+         *
+         * @param threadId contains the id of the thread in which it is called
          */
-        void DisconnectUser(const char *);
+        void DisconnectUser(const char *, const int);
 
         /**
          * @brief Prints query results from database in a readable format on the debug console
@@ -315,13 +317,19 @@ void* specialisedThreadStatusAdd(void*);
  */
 FILE* getStatsFile(const char * );
 
-void Server::DisconnectUser(const char* username)
+void Server::DisconnectUser(const char* username, const int threadId)
 {
     int index = 0;
+    bool found = false;
     for(;index<this->nLoggedUsers;index++)
     {
-        if(!strcmp(*(this->loggedUsers+index), username))
+        if(!strcmp(*(this->loggedUsers+index), username)) {
+            found = true;
             break;
+        }
+    }
+    if (!found) {
+        this->ReportLog(noUserError, threadId, username);
     }
     free(*(this->loggedUsers + index));
     for(; index < this->nLoggedUsers-1; index++)
@@ -426,12 +434,12 @@ void Server::ThreadRuntime(thData threadDataLocal)
             this->ReportLog(threadReadError, threadDataLocal.idThread, threadDataLocal.linkedUser);
         if(!strcmp(request, "CLIENTEVENTQUIT"))
         {
-            this->DisconnectUser(threadDataLocal.linkedUser);
+            this->DisconnectUser(threadDataLocal.linkedUser, threadDataLocal.idThread);
             break;
         }
         if(!strcmp(request, "CLIENTEVENTDISC"))
         {
-            this->DisconnectUser(threadDataLocal.linkedUser);
+            this->DisconnectUser(threadDataLocal.linkedUser, threadDataLocal.idThread);
             break;
         }
         if(!strcmp(request, "CLIENTEVENTQUER"))
@@ -638,15 +646,18 @@ bool Server::ThreadLoginBootstrap(void* arg)
         if( 0 > (bytesRead = read(threadDataLocal.clientDescriptor, clientRequest, 256)))
             this->ReportLog(threadReadError, threadDataLocal.idThread);
         else if(bytesRead > 0)
-            this->ReportLog(threadReadSuccess, threadDataLocal.idThread);
+            if (0 != *clientRequest)
+                this->ReportLog(threadReadSuccess, threadDataLocal.idThread);
             else
-            {
-                this->ReportLog(threadLogonFailLoggedIn, threadDataLocal.idThread);
-                free(clientRequest);
-                free(username);
-                free(timeout);
-                return false;
-            }
+                this->ReportLog(noUserError, threadDataLocal.idThread);
+        else
+        {
+            this->ReportLog(threadLogonFailLoggedIn, threadDataLocal.idThread);
+            free(clientRequest);
+            free(username);
+            free(timeout);
+            return false;
+        }
         if(!strcmp(clientRequest, "CLIENTEVENTQUIT"))
             return false;
         if(!strcmp(clientRequest, "CLIENTEVENTDISC"))
@@ -657,14 +668,14 @@ bool Server::ThreadLoginBootstrap(void* arg)
                 this->ReportLog(threadReadError, threadDataLocal.idThread);
             else if(bytesRead > 0)
                 this->ReportLog(threadReadSuccess, threadDataLocal.idThread);
-                else
-                {
-                    this->ReportLog(threadLogonFailLoggedIn, threadDataLocal.idThread);
-                    free(clientRequest);
-                    free(username);
-                    free(timeout);
-                    return false;
-                }
+            else
+            {
+                this->ReportLog(threadLogonFailLoggedIn, threadDataLocal.idThread);
+                free(clientRequest);
+                free(username);
+                free(timeout);
+                return false;
+            }
             p = strtok(clientRequest, ";");
             isLoggedOn = usersDB.existsAccount(clientRequest);
             char* responseBuffer = (char*)malloc(12);
@@ -691,9 +702,10 @@ bool Server::ThreadLoginBootstrap(void* arg)
 
 
         isLoggedOn = usersDB.ConfirmLogon(clientRequest, p);
+        this->ReportLog(noUserError, threadDataLocal.idThread);
 
         strcpy(username, clientRequest);
-        strcpy(clientRequest,  isLoggedOn ? "LOGONACCMPL" : "LOGONFAILED"); 
+        strcpy(clientRequest,  isLoggedOn ? "LOGONACCMPL" : "LOGONFAILED");
 
         if(ThreadTimeout(timeout, timeoutSeconds, timeoutSecondsLeft))
         {
@@ -722,8 +734,11 @@ bool Server::ThreadLoginBootstrap(void* arg)
             }
             if(this->nLoggedUsers == MAX_USERS)
             {
-                strcpy(clientRequest, "LGERRCAPHIT");
-                this->ReportLog(threadLogonFailCapacity,threadDataLocal.idThread, username);
+                char* ret = strcpy(clientRequest, "LGERRCAPHIT");
+                this->ReportLog(noUserError, threadDataLocal.idThread, username);
+                if (ret != clientRequest) {
+                    this->ReportLog(threadLogonFailCapacity,threadDataLocal.idThread, username);
+                }
                 isLoggedOn = false;
             }
         }
@@ -852,17 +867,21 @@ char* Server::GetLocaltime()
 }
 
 
+#define MAX_STRLEN 512
 
 void Server::ReportLog(const int logId, const int threadId,const char* userId)
 {
-    char* logLine = (char*)malloc(MAXSTRLEN);
-    memset(logLine ,0 ,MAXSTRLEN);
+    char* logLine = (char*)malloc(MAX_STRLEN);
+    memset(logLine ,0 ,MAX_STRLEN);
     struct flock fileLock;
     fileLock.l_type = F_WRLCK;
-    fileLock.l_len = MAXSTRLEN;
+    fileLock.l_len = MAX_STRLEN;
     fileLock.l_start = 0;
     fileLock.l_whence = SEEK_CUR;
     fcntl(this->logFile, F_SETLK, &fileLock);
+    const char* standardLine = "[Server]bookFind() was not called properly and it could not return the user "
+        "you were looking for. Server will not stop operation in the expectation other requiests could "
+        "still be handled. Please try again later.";
     switch(logId)
     {
         case socketError:
@@ -880,6 +899,9 @@ void Server::ReportLog(const int logId, const int threadId,const char* userId)
             write(this->logFile, logLine, strlen(logLine));
             close(this->logFile);
             exit(3);
+        case noUserError:
+            snprintf(logLine, 512, standardLine);
+            break;
         case acceptError:
             sprintf(logLine,"[Server][%s]accept() function error!\nContinuing Server program.\n",this->GetLocaltime());
             break;
