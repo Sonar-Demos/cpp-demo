@@ -189,9 +189,50 @@ It is also dangerous because it involves executing unknown code.
 
 ## ⚡ SonarLint: Fix issues before they exist
 
-### 🦭 CLion
+Alongside the CI based analysis, SonarLint allows the detection of most issues directly in the IDE.
+This allows fixing most issues even before they reach the CI check.
+
+Supported IDEs:
+ - Visual Studio
+ - Visual Studio Code - shown in the demo
+ - CLion - shown in the demo
+ - Eclipse
 
 ### ⌨ Visual Studio Code
+Sonarlint can be acquired from the extension marketplace
+
+![VSCode-Marketplace](img/SL/VSCode-marketplace.png)
+
+SonarLint for VSCode uses a generated `compile_commands.json` to detect the options used to compile the sources. 
+Initially, this will not be set.
+Once installed, upon having an open C/C++ file, the following notification will appear
+
+![VSCode-compile-commands.png](img/SL/VSCode-compile-commands.png)
+
+By pressing 'Configure compile commands', if the project already has a `compile_commands.json` present in the project's directory structure, it will automatically select that one. If multiple such files exist, you will be prompted to select one of them.
+
+If none exist, you will be linked to a guide to generate this file
+
+![VSCode-compile-commands-missing.png](img/SL/VSCode-compile-commands-missing.png)
+
+The path to the `compile_commands.json` can also be set manually inside `.vscode/settings.json`
+```json
+{
+    "sonarlint.pathToCompileCommands": "path/to/compile_commands.json"
+}
+```
+
+
+Once this is set up, issues raised by SonarLint should appear inside your Problems view
+
+![VSCode-issues.png](img/SL/VSCode-issues.png)
+
+Issues will also highlight the code that raises the issue, and can be viewed by hovering over the selection
+
+![VSCode-highlight.png](img/SL/VSCode-highlight.png)
+
+
+### 🦭 CLion
 
 ### 📄 Show rule description
 
