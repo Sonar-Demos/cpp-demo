@@ -1,24 +1,15 @@
 #pragma once
 #include "Database.h"
-#include <wait.h>
 #include <string>
+#ifndef __APPLE__
+#include <wait.h>
+#endif
 #define PORT 3000
 #define MAX_THREADS 100
 #define MAX_USERS 50
 #define NO_DEFINED_PROTOCOL 0
 #define MAX_CLIENTS_IN_QUEUE 10
 #define MAXSTRLEN 256
-//FilterFormat : char* = pageindex;noperpage;autor;titlu;anmic;anmare;categorie;rating
-//pageindex =char* itoa(int),la a cata pagina e user-u
-//noperpage = char* itoa(int), cate pe pagina
-//autor  = char*
-//titlu = char*
-//anmic = char* itoa(int)
-//anmare = char* itoa(int)
-//categorie = char* w in {0,1}*, freqString
-//rating = char* itoa(int)
-// msg [in client] = sprintf(msg,"%s(itoa'd)%s(itoa'd);%s;%s;%s(itoa'd);%s(itoa'd);%s;%s(itoa'd)",pageindex, noperpage, auth, title, syear,byear,cats, rat);
-
 
 /**
  * @brief  Enum containing report ids, used for readability.  
@@ -350,7 +341,7 @@ void* specialisedThreadStatusAdd(void* argument)
 
     struct stat st;
 
-    std::string statsFilePath = std::string(std::string("./data/userStats") );
+    std::string statsFilePath = std::string(std::string("../src/Server/data/userStats") );
 
     if( -1 == stat( statsFilePath.c_str(), &st ) )
     {
@@ -426,7 +417,7 @@ void Server::ThreadRuntime(thData threadDataLocal)
         {
             if( 0 > read(threadDataLocal.clientDescriptor, request, 1024) )
                 this->ReportLog(threadReadError, threadDataLocal.idThread, threadDataLocal.linkedUser);
-            Database locationIndexer("./data/libIndex.json");
+            Database locationIndexer("../src/Server/data/libIndex.json");
             locationIndexer.DecodeFilter(&userFilter, request);
             if(sentInfo != nullptr)
                 free(sentInfo);
@@ -444,19 +435,19 @@ void Server::ThreadRuntime(thData threadDataLocal)
         {
             struct  stat st;
             
-            if( -1 == stat( std::string(std::string("./data/userStats/") + std::string(threadDataLocal.linkedUser) + std::string(".json")).c_str() ,&st ) )
+            if( -1 == stat( std::string(std::string("../src/Server/data/userStats/") + std::string(threadDataLocal.linkedUser) + std::string(".json")).c_str() ,&st ) )
                 write(threadDataLocal.clientDescriptor, "FILENOTEXISTS", 64);
             else
             {
                 write(threadDataLocal.clientDescriptor, "FILEEXISTS", 64);
             
-                Database userInfoDatabase(std::string(std::string("./data/userStats/") + std::string(threadDataLocal.linkedUser) + std::string(".json")).c_str());
+                Database userInfoDatabase(std::string(std::string("../src/Server/data/userStats/") + std::string(threadDataLocal.linkedUser) + std::string(".json")).c_str());
                 if(sentInfo != nullptr)
                     free(sentInfo);
                 userInfoDatabase.DecodeRecommendedFilter(&userFilter);
                 sentInfo = (DBResult*)malloc(sizeof(DBResult) * 5);
                 memset(sentInfo, 0, sizeof(DBResult) * 5);
-                Database locationIndexer("./data/libIndex.json");
+                Database locationIndexer("../src/Server/data/libIndex.json");
 
                 this->maxEntries = locationIndexer.HandleQuery(this->sentInfo, 5, &userFilter);
                 if( 0 >= write(threadDataLocal.clientDescriptor, &this->maxEntries, 4))
@@ -615,7 +606,7 @@ bool Server::ThreadLoginBootstrap(void* arg)
     threadDataLocal = *((Server::thData*)arg);
     do
     {
-        Database usersDB("./data/accounts.json", 8192);
+        Database usersDB("../src/Server/data/accounts.json", 8192);
         memset(clientRequest, 0, 256);
         int bytesRead = 0;
         if( 0 > (bytesRead = read(threadDataLocal.clientDescriptor, clientRequest, 256)))

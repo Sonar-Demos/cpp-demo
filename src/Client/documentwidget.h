@@ -4,7 +4,7 @@
 #include <QtCore>
 #include <QtGui>
 #include <QWidget>
-#include <poppler-qt5.h>
+#include <poppler/qt5/poppler-qt5.h>
 
 #define DEFAULTWIDTH 72
 #define DEFAULTHEIGHT 72

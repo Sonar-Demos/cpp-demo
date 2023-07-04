@@ -1,6 +1,5 @@
 #pragma once
-#include <json_object.h>
-#include <json_tokener.h>
+#include <json-c/json.h>
 #include <stdio.h>
 #include <cstring>
 #define MAXBUFFERSIZE 65532

@@ -1,5 +1,5 @@
 #include "readwindow.h"
-#include <poppler-qt5.h>
+#include <poppler/qt5/poppler-qt5.h>
 #include <QMessageBox>
 #include "pdfviewer.h"
 ReadWindow::ReadWindow(MainWindow *parentWindow, const char* tempFilePath)

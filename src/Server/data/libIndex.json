@@ -6,7 +6,7 @@
         "genre" : "comedy",
         "year" : 2019,
         "rating" : 4,
-        "diskPath" : "./data/books/0.txt"
+        "diskPath" : "../src/Server/data/books/0.txt"
     },
     {
         "isbn" : 1,
@@ -15,7 +15,7 @@
         "genre" : "drama",
         "year" : 2019,
         "rating" : 1,
-        "diskPath" : "./data/books/1.txt"
+        "diskPath" : "../src/Server/data/books/1.txt"
     },
     {
         "isbn" : 2,
@@ -24,7 +24,7 @@
         "genre" : "fantasy",
         "year" : 2019,
         "rating" : 1,
-        "diskPath" : "./data/books/2.txt"
+        "diskPath" : "../src/Server/data/books/2.txt"
     },
     {
         "isbn" : 3,
@@ -33,6 +33,6 @@
         "genre" : "manual",
         "year" : 2019,
         "rating" : 1,
-        "diskPath" : "./data/books/3.txt"
+        "diskPath" : "../src/Server/data/books/3.txt"
     }
 ]
