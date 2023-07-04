@@ -16,16 +16,30 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Set up Python 3.8 for gcovr
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      - name: Install gcovr 5.0
+        run: |
+          pip install gcovr==5.0 # 5.1 is not supported
+      - name: Install json-c
+        run: |
+          sudo apt-get -y install libjson-c-dev libjson-c5
       - name: Install sonar-scanner
         uses: SonarSource/sonarcloud-github-c-cpp@v1
-      - name: Generate compilation database
+      - name: Generate compilation database and coverage report
         run: |
           mkdir build
           cmake -S . -B build
+          cmake --build build
+          ./build/unit_tests
+          gcovr --sonarqube > coverage.xml
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }} # Put the name of your token here
         run: |
           # Set the property "sonar.cfamily.compile-commands" to the compilation database file
-          sonar-scanner --define sonar.cfamily.compile-commands=build/compile_commands.json
+          sonar-scanner --define sonar.cfamily.compile-commands=build/compile_commands.json \
+                        --define sonar.coverageReportPaths=coverage.xml
