@@ -10,7 +10,7 @@
     Also mention compilation database.
   - Show a new issue produced once the branch with analysis is merged and the GH Action finishes.
   - [X] Coverage generation and import
-- [ ] TODO: PR analysis. CaYC
+- [X] TODO: PR analysis. CaYC
   - Prepare a PR with different issues.
     Demonstrate that the quality gate mentions only the the issues on the changed and added code.
     Explain CaYC
@@ -28,11 +28,11 @@ The goal of this demo is to show the analysis of a C++ application in SonarCloud
 We want to showcase how to apply the "Clean As You Code" methodology in practice.
 
 We start with a legacy application.
-This legacy application contains a "main" branch with the existing code.
-It also contains an "add-feature" branch that represents a new feature we want to develop for the application.
+This legacy application contains `main` branch with the existing code.
+It also contains `add-feature` branch that represents a new feature we want to develop for the application.
 
 The full set-up can either be done as part of the demo (takes about 15 minutes), or beforehand.
-A branch "enable-ci-analysis" is available to move from Automatic Analysis to a CI-based analysis,
+Branch `enable-ci-analysis` is available to move from Automatic Analysis to a CI-based analysis,
 with the import of code coverage information.
 
 Once the repository is fully set up, you can observe the concept of PR Quality Gate on new code
@@ -51,11 +51,11 @@ TODO: # * A "bad practice" code smell
 
 TODO: # * A stylistic code smell
 
-Additionally, we have a security hotspot on the main branch:
+Additionally, we have a security hotspot on the `main` branch:
 
 TODO: # * ???
 
-When setting up CI-based analysis, import of code coverage will be done by default (in the "enable-ci-analysis" branch).
+When setting up CI-based analysis, import of code coverage will be done by default (in the `enable-ci-analysis` branch).
 
 To demo SonarLint you can also clone this project to show the issues in SonarLint.
 Some of the issues have quick fixes for them.
@@ -100,7 +100,7 @@ The executables will be put into the newly created `build` folder
 # 📝 Setup instructions
 
 We are going to set up a SonarCloud analysis on this project.
-We will visualize issues on the main branch and on pull requests and see how PRs get decorated automatically.
+We will visualize issues on the `main` branch and on pull requests and see how PRs get decorated automatically.
 
 We will then set up a CI-based analysis and import code coverage information into the SonarCloud UI.
 
@@ -110,9 +110,6 @@ Useful link: https://docs.sonarcloud.io/
 
 * Fork this project *with all branches*
   (untick the default checkbox, "Copy the `main` branch only").
-* Go to "Pull requests->New pull request" and open a pull request from the
-  `add-feature` branch to the `main` branch of your fork.
-  Be careful: by default, the PR targets the upstream repository.
 * Go to https://sonarcloud.io/sessions/new and sign up with your GitHub account.
 * Create a new organization under your name if there is none.
 * Give SonarCloud permission to see the forked repository.
@@ -135,7 +132,7 @@ Note two things, useful for the following step:
 
 ## 👷 CI-based analysis on SonarCloud with a coverage display
 
-This step assumes you have added the project to SonarCloud and executed automatic analysis (see previous step).
+This step assumes you have added the project to SonarCloud and executed automatic analysis (see the previous step).
 
 For examples of CI-based analysis on other platforms, see https://github.com/sonarsource-cfamily-examples
 
@@ -186,6 +183,33 @@ they are built.
 It is also dangerous because it involves executing unknown code.
 
 ![Coverage summary](img/coverage.png)
+
+## 🧹 PR analysis: Clean as You Code
+
+This step requires one of the analysis methods (automatic or CI-based) set-up.
+
+Let us open a pull request:
+* Substitute `<your account>` in two places in this url and navigate to it:
+  `https://github.com/<your account>/cpp-demo/compare/main...<your account>:cpp-demo:add-feature`
+* Click on "Create pull request" twice.
+* Wait until the analysis finishes
+  (the yellow circle 🟡 next to the commit hash should appear
+  and turn into a red cross ❌ because quality gate fails).
+
+After a couple of minutes you will see a quality-gate message in your pull request.
+
+![Quality Gate failed](img/qg-failed.png)
+
+Clicking on a link in the message will bring you to the detailed quality-gate view.
+Here you can see much fewer findings.
+These are findings relevant only to your pull request:
+- the new issues or vulnerabilities that you created.
+- the pre-existing issues or vulnerabilities in the code that you have modified.
+
+These few issues and vulnerabilities do not take too long to review and fix.
+That is the cracks of the Clean as You Code approach:
+Clean only the code that you write or modify.
+Do not try to fix all the problems in the project.
 
 ## ⚡ SonarLint: Fix issues before they exist
 
