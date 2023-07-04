@@ -69,7 +69,33 @@ which allows
 
 # 🛠 Building and running the application
 
-TODO
+### Build Dependencies
+- Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Install [cmake](https://cmake.org/install/), if building with cmake
+- Install libjson-c-dev, required by server target
+- Install qtdeclarative5-dev, required by client target
+- Install libpoppler-qt5-dev, required by client target
+
+### Building with CMake
+```shell
+cmake -S . -B build
+
+# Either build all available targets
+cmake --build build --target all
+# or build a specific target
+cmake --build build --target server
+```
+
+### Building with Make
+Building a specific target is also possible using make
+```shell
+make server
+```
+
+### Running the application
+The executables will be put into the newly created `build` folder
+ - `build/server` has to be run before the client
+ - `build/client` is the GUI client interacting with the server
 
 # 📝 Setup instructions
 

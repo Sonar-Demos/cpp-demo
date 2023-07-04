@@ -6,29 +6,33 @@ else()
 set(POPPLER_INCLUDE_DIR)
 endif()
 
-find_package(Qt5Widgets REQUIRED)
-find_package(Qt5Widgets REQUIRED)
+find_package(Qt5Widgets QUIET)
 
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-set(CMAKE_AUTOUIC ON)
+if(Qt5Widgets_FOUND)
+  message("-- Qt5 found. Creating 'client' target")
+  set(CMAKE_AUTOMOC ON)
+  set(CMAKE_AUTORCC ON)
+  set(CMAKE_AUTOUIC ON)
 
-add_executable(client
-    main.cpp
-    createaccount.cpp
-    documentwidget.cpp
-    mainwindow.cpp
-    pdfviewer.cpp
-    readwindow.cpp
-    settingswindow.cpp)
+  add_executable(client
+      main.cpp
+      createaccount.cpp
+      documentwidget.cpp
+      mainwindow.cpp
+      pdfviewer.cpp
+      readwindow.cpp
+      settingswindow.cpp)
 
-target_include_directories(client PRIVATE
-    ${POPPLER_INCLUDE_DIR})
+  target_include_directories(client PRIVATE
+      ${POPPLER_INCLUDE_DIR})
 
-target_link_libraries(client
-    Qt5::Widgets
-    poppler-qt5)
+  target_link_libraries(client
+      Qt5::Widgets
+      poppler-qt5)
 
-set_target_properties(
-    client
-    PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+  set_target_properties(
+      client
+      PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+else()
+  message("-- Qt5 not found. Will not create 'client' target")
+endif()
