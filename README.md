@@ -132,7 +132,15 @@ If a file is never compiled, it will not be analyzed, unlike with automatic anal
 
 TODO: highlight an appearing issue and explain why
 
-TODO: show coverage and explain why it has appeared
+Note that now you can see the test coverage of the code.
+At the moment CI-based or manual analysis is the only way
+to display test coverage on SonarCloud or SonarQube.
+This is because to gather test coverage, you will need to run the
+tests and that is difficult to do without knowing where the tests are and how
+they are built.
+It is also dangerous because it involves executing unknown code.
+
+![Coverage summary](img/coverage.png)
 
 ## ⚡ SonarLint: Fix issues before they exist
 
