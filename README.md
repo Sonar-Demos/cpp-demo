@@ -103,7 +103,9 @@ Note two things, useful for the following step:
 
 * Among the many detected issues,
   there is no report for [S1068: Unused "private" fields should be removed](https://rules.sonarsource.com/cpp/RSPEC-1068/).
+  ![No S1068 issues detected](img/missing-issue-autoscan.png)
 * Test-coverage metric is not computed.
+  ![No coverage](img/missing-coverage.png)
 
 ## 👷 CI-based analysis on SonarCloud with a coverage display
 
