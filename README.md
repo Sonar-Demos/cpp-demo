@@ -19,7 +19,7 @@
   Special workflow for a vulnerability
 - [ ] TODO: issue with secondaries
   show the short-cut navigation
-- [ ] TODO: single-flow issue
+- [X] TODO: single-flow issue
 - [X] TODO: multi-flow issue
 
 # 📜 Storyboard
@@ -195,6 +195,25 @@ Here is a selection that you can find in this demo project:
 ### and 
 ### bugs
 
+### A bug with an execution flow
+
+Deep bugs and vulnerabilities are difficult to understand without the execution context.
+An execution flow demonstrates the steps the program could have taken that lead to the bug.
+
+Once your code is analyzed,
+you can find an example of a bug with an execution flow on the line 831 of serverMain.h.
+Replace the two occurences of `<your account>` with your GitHub account
+in the following link and navigate to it:
+`https://sonarcloud.io/code?id=<your account>_cpp-demo&selected=<your account>-demo%3Asrc%2FServer%2FserverMain.h&line=831`
+
+You should see a bug icon 🐞 next to line 831, like this:
+
+![Bug on l.831](img/l831.png)
+
+If you click on it, you can see the issue details, including the execution flow steps:
+
+![An issue report with an execution flow](img/single-flow-issue.png)
+
 ### A vulnerability with an execution flow as well as data flows highlighted.
 
 Some particularly deep bugs and vulnerabilities require more context to understand.
@@ -202,7 +221,8 @@ Sonar provides this context by offering the data flows for values relevant to an
 To see an example you will need to set up [CI-based analysis](#-ci-based-analysis-on-sonarcloud-with-a-coverage-display)
 (this issue is not detected in automatic analysis).
 
-Once your code is analyzed, navigate to the "Issues" tab, and select "Vulnerability" and "Blocker" filters.
+Once your code is analyzed with CI-based analysis,
+navigate to the "Issues" tab, and select "Vulnerability" and "Blocker" filters.
 You should see a vulnerability detected by [S5782](https://rules.sonarsource.com/cpp/RSPEC-5782/).
 Alternatively, you can search for "S5782" in the "Rule" filter in the "Issues" tab.
 
