@@ -21,7 +21,6 @@ RUN apt-get update \
       rsync \
       tar \
       libjson-c-dev \
-      libjson-c5 \
       qtdeclarative5-dev \
       libpoppler-qt5-dev \
       gcovr \
