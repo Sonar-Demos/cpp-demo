@@ -206,6 +206,8 @@ Once your code is analyzed, navigate to the "Issues" tab, and select "Vulnerabil
 You should see a vulnerability detected by [S5782](https://rules.sonarsource.com/cpp/RSPEC-5782/).
 Alternatively, you can search for "S5782" in the "Rule" filter in the "Issues" tab.
 
+![An issue report with multiple flows](img/multiflow-issue.png)
+
 Clicking on the issue for a detailed view, you'll notice multiple accordeons on the left side:
 * Data flow for the size argument that overflows the buffer
 * Data flow for the buffer argument
