@@ -1,8 +1,8 @@
 # 🪓 Remaining work
-- [ ] TODO: SL in VSCode; SL in CLion (?)
+- [X] TODO: SL in VSCode; SL in CLion
   - Generate compilation database with `Bear make`
   - "Open folder" in VS Code (with SonarLine plugin installed). auto-configured the compilation DB produced by Bear
-- [ ] TODO: quickfix
+- [X] TODO: quickfix
 - [X] SC autoscan
   - clone the repository, add it to SonarCloud. the autoscan should start and finish quickly
 - [X] SC CI-based. show the difference
@@ -286,8 +286,8 @@ Sonarlint can be acquired from the Extension Marketplace
 ![VSCode-marketplace](img/SL/VSCode-marketplace.png)
 
 SonarLint for VSCode uses a generated `compile_commands.json` to detect the options used to compile the sources. 
-Initially, this will not be set.
-Once installed, upon having an open C/C++ file, the following notification will appear
+Initially, SonarLint is not aware of the location of the relevant `compile_commands.json` file.
+Once installed, upon having an open C or C++ file, the following notification will appear
 
 ![VSCode-compile-commands.png](img/SL/VSCode-compile-commands.png)
 
@@ -347,10 +347,10 @@ SonarLint will also analyse your staged changes before a commit to a VCS. This i
 
 ### 📄 Show rule description
 
-Issues are raised based on the rule these break.
+Issues are raised based on the rule these issues break.
 To properly fix an issue, understanding the rule is vital.
 
-The full database of rule descriptions is available at [sonarsource.github.io/rspec](https://sonarsource.github.io/rspec).
+The full database of rule descriptions is available at [rules.sonarsource.com](https://rules.sonarsource.com/cpp/).
 
 Rule descriptions are also provided by SonarLint and can be accessed in the IDE. 
 
@@ -410,7 +410,7 @@ Applying the quickfix in both cases, we get the following:
 
 ### 🔌 Synchronize issues between SonarCloud and SonarLint
 
-SonarLint can be connected to a SonarQube/SonarLint instance for the current project. This is called Connected Mode, and it provides multiple advantages:
+SonarLint can be connected to a SonarQube/SonarCloud instance for the current project. This is called Connected Mode, and it provides multiple advantages:
 
 - Synchronising active rules with the ones used in the CI analysis
 - Viewing the issues raised by the CI analysis that are not available in SonarLint
