@@ -9,6 +9,6 @@
 
 TEST(ServerTest, Init) {
   Server s(8099);
-  s.Init();
+  s.Init(128);
   ASSERT_STRNE(s.GetLocaltime(), "empty");
 }

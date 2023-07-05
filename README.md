@@ -208,10 +208,11 @@ Alternatively, you can search for "S5782" in the "Rule" filter in the "Issues" t
 
 ![An issue report with multiple flows](img/multiflow-issue.png)
 
-Clicking on the issue for a detailed view, you'll notice multiple accordeons on the left side:
-* Data flow for the size argument that overflows the buffer
-* Data flow for the buffer argument
-* Execution flow
+After clicking on the issue for a detailed view,
+you will notice multiple accordeons on the left side:
+* A data flow for the size argument that overflows the buffer
+* A data flow for the buffer argument
+* The execution flow
 
 As you can see, the execution flow in this case is not very informative,
 but the data flows allow you to track where the incorrect values of
