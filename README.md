@@ -150,8 +150,11 @@ For examples of CI-based analysis on other platforms, see https://github.com/son
   * Enter the name of the secret: `SONAR_TOKEN`
   * Paste the secret from the previous step.
   * Click "Add Secret".
-* Checkout the `enable-ci-analysis` branch.
-* In "sonar-project.properties" file change the `sonar.projectKey` and
+* Edit "sonar-project.properties" the `enable-ci-analysis` branch.
+  * You can check it out locally, or edit directly on GitHub:
+    (substitute `<your account>` in this link:
+    `https://github.com/<your account>/cpp-demo/edit/enable-ci-analysis/sonar-project.properties`)
+  * In "sonar-project.properties" change the `sonar.projectKey` and
   `sonar.organization` to use your organization name (your GitHub username).
 * Commit, push, and merge the branch into `main` (careful: select yor fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
