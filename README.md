@@ -199,7 +199,7 @@ Here is a selection that you can find in this demo project:
 
 Some particularly deep bugs and vulnerabilities require more context to understand.
 Sonar provides this context by offering the data flows for values relevant to an issue.
-To see an example you will need to set up [CI-based analysis](-ci-based-analysis-on-sonarcloud-with-a-coverage-display)
+To see an example you will need to set up [CI-based analysis](#-ci-based-analysis-on-sonarcloud-with-a-coverage-display)
 (this issue is not detected in automatic analysis).
 
 Once your code is analyzed, navigate to the "Issues" tab, and select "Vulnerability" and "Blocker" filters.
