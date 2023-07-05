@@ -250,3 +250,5 @@ To prepare for the next demo, you should delete the project from SonarCloud:
 
 You might also want to delete it from your GitHub account
 Click the button at the bottom of the ⚙ "Settings": `https://github.com/<your-account>/cpp-demo/settings`
+
+
