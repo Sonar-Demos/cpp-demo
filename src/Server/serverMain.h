@@ -3,6 +3,7 @@
 #include <string>
 #ifndef __APPLE__
 #include <wait.h>
+#include <assert.h>
 #endif
 #define PORT 3000
 #define MAX_THREADS 100
@@ -262,8 +263,15 @@ class Server
          * @brief Function that treats the server initialisation
          * 
          * Sets up the required structures and procedures for internet connection. (socket, bind, listen)
+         *
+         * @param nEntries int maxiumum expected number of entries
          */
-        void Init();
+        void Init(int = 128);
+
+        /**
+         * @brief Sets the maximum number of users the server is expected to handle.
+         */
+        void setMaxUsers(int);
 
         /**
          * @brief Prints the names of the users that are logged in at the time of the function call [Optional] [Debug function]
@@ -274,6 +282,16 @@ class Server
          * @brief Main server runtime, loop treating client connections and thread creation.
          */
         void Runtime();
+
+        /**
+         * @brief Get the maximum expected number of entries.
+         */
+        size_t getMaxEntries();
+
+        /**
+         * @brief Generate a throw-away buffer.
+         */
+       char *makeATempBuf();
 
         /**
          * @brief Server destructor
@@ -552,6 +570,11 @@ void Server::PrintLoggedUsers()
     }
 }
 
+void Server::setMaxUsers(int maxUsers) {
+    assert(maxUsers < MAX_USERS);
+    this->maxEntries = maxUsers / MAX_CLIENTS_IN_QUEUE;
+}
+
 bool Server::isUserLoggedIn(const char* username)
 {
     for(size_t index = 0; index < this->nLoggedUsers; index++)
@@ -767,8 +790,17 @@ void Server::Runtime()
         pthread_create(&this->threads[threadIndex++], NULL, this->ThreadInitCall, (void*)threadData);
     }
 }
+size_t Server::getMaxEntries() {
+    return this->maxEntries;
+}
 
-void Server::Init()
+char *Server::makeATempBuf() {
+    char* buffer = (char* ) malloc(MAXSTRLEN);
+    memset(buffer, 0, MAXSTRLEN);
+    return buffer;
+}
+
+void Server::Init(int nEntries)
 {
     this->logFile = this->CreateLog();
     if(-1 == (this->socketDescriptor = socket(AF_INET, SOCK_STREAM, NO_DEFINED_PROTOCOL)))
@@ -779,6 +811,7 @@ void Server::Init()
         this->ReportLog(bindError);
     if(-1 == listen(this->socketDescriptor, MAX_CLIENTS_IN_QUEUE)) 
         this->ReportLog(listenError);
+    this->maxEntries = nEntries;
 }
 
 Server::Server(const int& givenPort)
