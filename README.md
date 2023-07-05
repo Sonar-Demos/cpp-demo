@@ -20,7 +20,7 @@
 - [ ] TODO: issue with secondaries
   show the short-cut navigation
 - [ ] TODO: single-flow issue
-- [ ] TODO: multi-flow issue
+- [X] TODO: multi-flow issue
 
 # 📜 Storyboard
 
@@ -183,6 +183,38 @@ they are built.
 It is also dangerous because it involves executing unknown code.
 
 ![Coverage summary](img/coverage.png)
+
+## 🔍 What you can find in you Sonar report
+
+Sonar reports variaous kinds of findings.
+Here is a selection that you can find in this demo project:
+
+### simpler
+
+### issues
+### and 
+### bugs
+
+### A vulnerability with an execution flow as well as data flows highlighted.
+
+Some particularly deep bugs and vulnerabilities require more context to understand.
+Sonar provides this context by offering the data flows for values relevant to an issue.
+To see an example you will need to set up [CI-based analysis](-ci-based-analysis-on-sonarcloud-with-a-coverage-display)
+(this issue is not detected in automatic analysis).
+
+Once your code is analyzed, navigate to the "Issues" tab, and select "Vulnerability" and "Blocker" filters.
+You should see a vulnerability detected by [S5782](https://rules.sonarsource.com/cpp/RSPEC-5782/).
+Alternatively, you can search for "S5782" in the "Rule" filter in the "Issues" tab.
+
+Clicking on the issue for a detailed view, you'll notice multiple accordeons on the left side:
+* Data flow for the size argument that overflows the buffer
+* Data flow for the buffer argument
+* Execution flow
+
+As you can see, the execution flow in this case is not very informative,
+but the data flows allow you to track where the incorrect values of
+a memory buffer and a read length come from.
+
 
 ## 🧹 PR analysis: Clean as You Code
 
