@@ -207,7 +207,7 @@ Once your code is analyzed,
 you can find an example of a bug with an execution flow on the line 831 of serverMain.h.
 Replace the two occurences of `<your account>` with your GitHub account
 in the following link and navigate to it:
-`https://sonarcloud.io/code?id=<your account>_cpp-demo&selected=<your account>-demo%3Asrc%2FServer%2FserverMain.h&line=831`
+`https://sonarcloud.io/code?id=<your account>_cpp-demo&selected=<your account>_cpp-demo%3Asrc%2FServer%2FserverMain.h&line=831`
 
 You should see a bug icon 🐞 next to line 831, like this:
 
@@ -361,9 +361,11 @@ In both mentioned IDEs, the Rule Description can be directly accessed from the '
 These appear when hovering code raising an issue in the editor, or by selecting the issue in the Problems view
 
 ![VSCode-open-rpsec.png](img/SL/VSCode-open-rspec.png)
+
 In VSCode, the rule description will open in a separate editor tab
 
 ![CLion-open-rspec.png](img/SL/CLion-open-rspec.png)
+
 In CLion, the rule description will open in the SonarLint view
 
 #### Issue to Rule - CLion
@@ -467,6 +469,7 @@ And use 'Create Token' to be redirected to SonarCloud Security to generate a use
 ![generate-token.png](img/SL/generate-token.png)
 
 After completing the connection, use 'Search in list...' to select the project you want to bind to.
+
 ![CLion-bind-project.png](img/SL/CLion-bind-project.png)
 
 In the end, press 'Ok', and the synchronization will commence. Synced features will activate afterward.
