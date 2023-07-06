@@ -408,7 +408,7 @@ SonarLint can be connected to a SonarQube/SonarCloud instance for the current pr
 
 For this demo, we will be configuring Connected Mode with a SonarCloud instance.
 
-#### VSCode
+#### ⌨ Visual Studio Code
 Connected Mode in VSCode can be accessed from the SonarLint tab.
 
 ![VSCode-connected-mode.png](img/SL/VSCode-connected-mode.png)
@@ -434,7 +434,7 @@ For example, the Security Hotspots section will now be populated, and the issues
 
 ![VSCode-connected-hotspots.png](img/SL/VSCode-connected-hotspots.png)
 
-#### CLion
+#### 🦭 CLion
 Connected Mode in CLion can be accessed from the SonarLint view's configuration.
 
 ![CLion-configure-view.png](img/SL/CLion-configure-view.png)
