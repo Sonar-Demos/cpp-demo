@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
         with:
@@ -23,9 +23,9 @@ jobs:
       - name: Install gcovr 5.0
         run: |
           pip install gcovr==5.0 # 5.1 is not supported
-      - name: Install json-c
+      - name: Install dependencies
         run: |
-          sudo apt-get -y install libjson-c-dev libjson-c5
+          sudo apt-get -y install libjson-c-dev libinput-dev libpoppler-qt5-dev qtdeclarative5-dev
       - name: Install sonar-scanner
         uses: SonarSource/sonarcloud-github-c-cpp@v1
       - name: Generate compilation database and coverage report
