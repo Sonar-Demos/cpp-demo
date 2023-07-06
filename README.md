@@ -5,7 +5,7 @@ We want to showcase how to apply the "Clean As You Code" methodology in practice
 
 We start with a legacy application.
 This legacy application contains `main` branch with the existing code.
-It also contains `add-feature` branch that represents a new feature we want to develop for the application.
+It also contains an `add-feature` branch that represents a new feature we want to develop for the application.
 
 The full set-up can either be done as part of the demo (takes about 15 minutes), or beforehand.
 Branch `enable-ci-analysis` is available to move from Automatic Analysis to a CI-based analysis,
@@ -28,15 +28,15 @@ The application features basic, yet varied, issue types that can be detected by 
 * A stylistic code smell  
   [S5827](https://rules.sonarsource.com/cpp/RSPEC-5025/): `auto` should be used to avoid repetition of types.
 
-Additionally, we have a security hotspots on the `main` branch:
+Additionally, we have a security hotspot on the `main` branch:
 
-* Security sensitive fuctions, like `strcpy` or `sprintf`  
+* Security-sensitive functions, like `strcpy` or `sprintf`  
   [S5801](https://rules.sonarsource.com/cpp/RSPEC-5801/): Using `strcpy` or `wcscpy` is security-sensitive.
 * Appropriate file-access permissions  
   [S2612](https://rules.sonarsource.com/cpp/RSPEC-2612/): Setting loose POSIX file permissions is security-sensitive.
 
 When setting up CI-based analysis,
-you will also import of code coverage (in the `enable-ci-analysis` branch).
+you will also import code coverage (in the `enable-ci-analysis` branch).
 
 To demo SonarLint you can also clone this project to show the issues in SonarLint.
 Some of the issues have quick fixes for them.
@@ -75,13 +75,13 @@ make server
 
 ### Running the application
 The executables will be put into the newly created `build` folder
- - `build/server` has to be run before the client
- - `build/client` is the GUI client interacting with the server
+- `build/server` has to be run before the client
+- `build/client` is the GUI client interacting with the server
 
 # 📝 Setup instructions
 
 We are going to set up a SonarCloud analysis on this project.
-We will visualize issues on the `main` branch and on pull requests and see how PRs get decorated automatically.
+We will visualize issues on the `main` branch and pull requests and see how PRs get decorated automatically.
 
 We will then set up a CI-based analysis and import code coverage information into the SonarCloud UI.
 
@@ -107,8 +107,10 @@ Note two things, useful for the following step:
 
 * Among the many detected issues,
   there is no report for [S1068: Unused "private" fields should be removed](https://rules.sonarsource.com/cpp/RSPEC-1068/).
+
   ![No S1068 issues detected](img/missing-issue-autoscan.png)
-* Test-coverage metric is not computed.
+* Test coverage metric is not computed.
+
   ![No coverage](img/missing-coverage.png)
 
 ## 👷 CI-based analysis on SonarCloud with a coverage display
@@ -132,15 +134,15 @@ For examples of CI-based analysis on other platforms, see https://github.com/son
   * Paste the secret from the previous step.
   * Click "Add Secret".
 * Edit "sonar-project.properties" on the `enable-ci-analysis` branch.
-  * You can check it out locally, or edit directly on GitHub:
+  * You can check it out locally, or edit it directly on GitHub:
     (substitute `<your account>` in this link:
     `https://github.com/<your account>/cpp-demo/edit/enable-ci-analysis/sonar-project.properties`)
   * In "sonar-project.properties" change the `sonar.projectKey` and
-  `sonar.organization` to use your organization name (your GitHub username).
+    `sonar.organization` to use your organization name (your GitHub username).
 * Commit, push, and merge the branch into `main` (careful: select your fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
 
-Note that the total number of issues has reduced
+Note that the total number of issues has changed
 because CI-based analysis analyses only the code you compile
 in the configuration that you provide.
 If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
@@ -179,9 +181,9 @@ In the "Issues" tab, you can filter and explore bugs, vulnerabilities, or code s
 
 ### ♨ Security hotspots
 
-Security hotspots are a special kind of findings that just draw your attention to sensitive code.
+Security hotspots are a special kind of finding that just draws your attention to sensitive code.
 All you need to do is take a second look and make sure you are not committing a common mistake.
-Once you do that, you can change the status of the hotspot and it will not bother you again.
+Once you do that, you can change the status of the hotspot, and it will not bother you again.
 Or you might discover a bug.
 
 ![Security Hotspots](img/hotspots.png)
@@ -235,7 +237,7 @@ a memory buffer and a read length come from.
 This step requires one of the analysis methods (automatic or CI-based) set up.
 
 Let us open a pull request:
-* Substitute `<your account>` in two places in this url and navigate to it:
+* Substitute `<your account>` in two places in this URL and navigate to it:
   `https://github.com/<your account>/cpp-demo/compare/main...<your account>:cpp-demo:add-feature`
 * Click on "Create pull request" twice.
 * Wait until the analysis finishes
@@ -263,29 +265,33 @@ Alongside the CI-based analysis, SonarLint allows the detection of most issues d
 In this way, you can fix most issues before they even reach the CI check.
 
 Supported IDEs:
- - Visual Studio
- - Visual Studio Code - shown in the demo
- - CLion - shown in the demo
- - Eclipse
+- Visual Studio
+- Visual Studio Code - shown in the demo
+- CLion - shown in the demo
+- Eclipse
 
 ### ⌨ Visual Studio Code
-Sonarlint can be acquired from the Extension Marketplace
+
+Sonarlint can be acquired from the Extension Marketplace.
 
 ![VSCode-marketplace](img/SL/VSCode-marketplace.png)
 
-SonarLint for VSCode uses a generated `compile_commands.json` to detect the options used to compile the sources. 
+SonarLint for VSCode uses a generated `compile_commands.json` to detect the options used to compile the sources.
 Initially, SonarLint is not aware of the location of the relevant `compile_commands.json` file.
-Once installed, upon having an open C or C++ file, the following notification will appear
+Once installed, upon opening a C or C++ file, the following notification will appear.
 
 ![VSCode-compile-commands.png](img/SL/VSCode-compile-commands.png)
 
-By pressing 'Configure compile commands', if the project already has a `compile_commands.json` present in the project's directory structure, it will automatically select that one. If multiple such files exist, you will be prompted to select one of them.
+Clicking 'Configure compile commands' will enable SonarLint to look for a `compile_commands.json` in your project's directory structure, resulting in one of the following:
 
-If none exist, you will be linked to a guide to generate this file
+- If no such file is found, you will be linked to a guide on how to generate this file.
 
-![VSCode-compile-commands-missing.png](img/SL/VSCode-compile-commands-missing.png)
+  ![VSCode-compile-commands-missing.png](img/SL/VSCode-compile-commands-missing.png)
+- If one such file is found, SonarLint will automatically select it.
+- If multiple such files are found, you will be able to select the one SonarLint will use.
 
-The path to the `compile_commands.json` can also be set manually inside `.vscode/settings.json`
+You can also set the path to `compile_commands.json` manually, by use of the following property:
+
 ```json
 {
     "sonarlint.pathToCompileCommands": "path/to/compile_commands.json"
@@ -293,45 +299,47 @@ The path to the `compile_commands.json` can also be set manually inside `.vscode
 ```
 
 
-Once this is set up, issues raised by SonarLint should appear inside your Problems view.
+Once this is set up, SonarLint will start raising issues. These will appear in the Problems View.
 
 ![VSCode-issues.png](img/SL/VSCode-issues.png)
 
-Code that triggers the issue will also be highlighted in the editor, and the raised issue can be viewed by hovering over the selection.
+SonarLint will also highlight the code that triggers the issues in the editor. You can see the issue by hovering over the highlight.
 
 serverMain.h:422
+
 ![VSCode-highlight.png](img/SL/VSCode-highlight.png)
 
-The analysis will be re-triggered automatically whenever a code change is detected.
+SonarLint will re-analyze your code automatically whenever it detects a code change.
 
 
 ### 🦭 CLion
-SonarLint can be acquired from Settings > Plugins > Marketplace
-For a complete installation, the IDE will have to be restarted afterward.
+
+SonarLint can be acquired from Settings > Plugins > Marketplace,
+For a complete installation, you will have to restart the IDE after installation.
 
 ![CLion-marketplace.png](img/SL/CLion-marketplace.png)
- 
-Once installed, SonarLint will analyse the sources part of the available build targets.
 
+Once installed, SonarLint will analyze the sources part of the available build targets.
 Any found issues will appear in the Problems view, but also as part of the dedicated SonarLint view, in the Current File tab.
 
 ![CLion-issues-problems.png](img/SL/CLion-issues-problems.png)
 
 ![CLion-issues-SonarLint.png](img/SL/CLion-issues-SonarLint.png)
 
-Code that triggers the issue will also be highlighted in the editor, and the raised issue can be viewed by hovering over the selection.
+SonarLint will also highlight the code that triggers the issues in the editor. You can see the issue by hovering over the highlight.
 
 serverMain.h:422
+
 ![CLion-highlight.png](img/SL/CLion-highlight.png)
 
-The analysis will be re-triggered automatically when a code change is detected.
-The automatic analysis can be de-activated in SonarLint's settings menu.
+SonarLint will re-analyze your code automatically whenever it detects a code change.
+The automatic analysis can be deactivated in SonarLint's settings menu.
 
 The analysis can also be triggered manually from the SonarLint view:
 
 ![CLion-manual-analysis.png](img/SL/CLion-manual-analysis.png)
 
-SonarLint will also analyse your staged changes before a commit to a VCS. This is enabled by default, and can be disabled in the Commit view:
+SonarLint will also analyze your staged changes before a commit to a VCS. This is enabled by default, and can be disabled in the Commit view:
 
 ![CLion-commit-analysis.png](img/SL/CLion-commit-analysis.png)
 
@@ -342,79 +350,80 @@ To properly fix an issue, understanding the rule is vital.
 
 The full database of rule descriptions is available at [rules.sonarsource.com](https://rules.sonarsource.com/cpp/).
 
-Rule descriptions are also provided by SonarLint and can be accessed in the IDE. 
+SonarLint provides the rule descriptions of its built-in rules and can be accessed in the IDE.
 
 Note: SonarLint supports a majority of the rules in the online database, but not all.
 
 #### From the issue
+
 In both mentioned IDEs, the Rule Description can be directly accessed from the 'Quick Fix' menu in VSCode, and from the 'More Actions' menu in CLion.
-These appear when hovering code raising an issue in the editor, or by selecting the issue in the Problems view
+These appear when hovering code raising an issue in the editor, or by selecting the issue in the Problems view,
 
 serverMain.h:422
+
 ![VSCode-open-rpsec.png](img/SL/VSCode-open-rspec.png)
 
-In VSCode, the rule description will open in a separate editor tab
+In VSCode, the rule description will open in a separate editor tab.
 
 serverMain.h:422
+
 ![CLion-open-rspec.png](img/SL/CLion-open-rspec.png)
 
-In CLion, the rule description will open in the SonarLint view
+In CLion, the rule description will open in the SonarLint view.
 
 #### Issue to Rule - CLion
-In CLion, inside the SonarLint view, the rule
-description can be viewed immediately by selecting
-any rule in the SonarLint view
+In CLion, inside the SonarLint view, you can access the rule description immediately by selecting any rule in the SonarLint view.
 
 ![CLion-rule-in-SL-view.png](img/SL/CLion-rule-in-SL-view.png)
 
 #### Rule navigation - VSCode
-In VSCode, all available rules (Active or Inactive)
-can be viewed in the SonarLint tab. By selecting any rule, it's description will be opened.
+In VSCode, you can view all available rules (Active or Inactive) in the SonarLint tab. Select a rule and its description will open.
 
 Only active rules will raise issues. Active rules can be changed in this panel by:
-- Activating inactive rules by pressing the check mark next to the rule
-- Deactivating active rules by pressing the cross mark next to the rule
+- Activating inactive rules by pressing the check mark next to the rule.
+- Deactivating active rules by pressing the cross mark next to the rule.
 
 ![VSCode-rules.png](img/SL/VSCode-rules.png)
 
 #### Rule navigation - CLion
-In CLion, all available rules (Active or Inactive)
-can be viewed in SonarLint's settings (Settings -> Tools -> SonarLint). By selecting any rule, it's description will be opened.
+In CLion, you can view all available rules (Active or Inactive) in SonarLint's settings (Settings -> Tools -> SonarLint). Select any rule and its description will appear.
 
-Only active rules will raise issues. Active rules can be changed in this panel by using the checkbox next to the rule
+Only active rules will raise issues. The checkbox next to the rules in the list will activate or deactivate them.
 
 ![CLion-rules.png](img/SL/CLion-rules.png)
 
 ### 🪛 Quick Fix
 
-Particular rules also support quickfixes in the IDE. These provide the option to instantly refactor the problematic code into compliant code.
+Particular rules also support quick fixes in the IDE. Using these, you can instantly refactor the problematic code into compliant code.
 
-In VSCode, a quickfix will appear as the first item
-in the 'Quick Fix' menu
+In VSCode, a quick fix will appear as the first item in the 'Quick Fix' menu.
 
 serverMain.h:490
+
 ![VSCode-quickfix-prompt.png](img/SL/VSCode-quickfix-prompt.png)
 
-In CLion, hovering over an issue that has a quick fix available will provide it as the first option to use
+In CLion, a quick fix will appear when hovering over an issue that has a quick fix available.
 
 serverMain.h:490
+
 ![CLion-quickfix-prompt.png](img/SL/CLion-quickfix-prompt.png)
 
-Applying the quickfix in both cases, we get the following:
+Applying the quick fix in both cases, we get the following:
 
 ![CLion-quickfix-result.png](img/SL/CLion-quickfix-result.png)
 
 ### 🔌 Connected mode: synchronize issues between SonarCloud and SonarLint
 
-SonarLint can be connected to a SonarQube/SonarCloud instance for the current project. This is called Connected Mode, and it provides multiple advantages:
+You can connect SonarLint to a SonarQube/SonarCloud instance for the current project. This is called Connected Mode, and it provides multiple advantages:
 
-- Synchronising active rules with the ones used in the CI analysis
-- Viewing the issues raised by the CI analysis that are not available in SonarLint
-- Viewing and reviewing Security Hotspots
+- Synchronising active rules with the ones used in the CI analysis.
+- Viewing the issues raised by the CI analysis that are not available in SonarLint.
+- Viewing and reviewing Security Hotspots.
 
 For this demo, we will be configuring Connected Mode with a SonarCloud instance.
 
 #### ⌨ Visual Studio Code
+
 Connected Mode in VSCode can be accessed from the SonarLint tab.
 
 ![VSCode-connected-mode.png](img/SL/VSCode-connected-mode.png)
@@ -425,12 +434,12 @@ From this, we will use 'Add SonarCloud Connection':
 
 The required data can be acquired as follows:
 
-- The user token can be generated by using the 'Generate Token' button. This will redirect you to your SonarCloud account security, allowing you to generate a token.
-![generate-token.png](img/SL/generate-token.png)
-- The organization key is found in the organization where the project in SonarCloud is analysed.
-- The connection name is required for identifying it locally.
+- You can generate a user token by using the 'Generate Token' button. This will redirect you to your SonarCloud account security, where you will be able to create a new token.
 
-Once complete, you will be prompted to select the project to bind to
+![generate-token.png](img/SL/generate-token.png)
+- The organization key is found in the organization where the project in SonarCloud is analyzed.
+
+Once complete, you will have to select the project to bind to:
 
 ![VSCode-bind-project.png](img/SL/VSCode-bind-project.png)
 
@@ -441,6 +450,7 @@ For example, the Security Hotspots section will now be populated, and the issues
 ![VSCode-connected-hotspots.png](img/SL/VSCode-connected-hotspots.png)
 
 #### 🦭 CLion
+
 Connected Mode in CLion can be accessed from the SonarLint view's configuration.
 
 ![CLion-configure-view.png](img/SL/CLion-configure-view.png)
@@ -471,11 +481,11 @@ For example, the Security Hotspots section will now be populated, and the issues
 
 ![CLion-security-hotspots.png](img/SL/CLion-security-hotspots.png)
 
-Security hotspots that have a SonarCloud icon can be reviewed directly in SonarLint by using 'Change Status'.
+You can review Security Hotspots that have a SonarCloud icon directly in the IDE, using 'Change Status'.
 
 ![CLion-review-hotspot.png](img/SL/CLion-review-hotspot.png)
 
-# 🛬 Teardown 
+# 🛬 Teardown
 
 To prepare for the next demo, you should delete the project from SonarCloud:
 
