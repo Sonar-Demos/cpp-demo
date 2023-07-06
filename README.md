@@ -30,9 +30,9 @@ The application features basic, yet varied, issue types that can be detected by 
 
 Additionally, we have a security hotspots on the `main` branch:
 
-* Security sensitive fuctions, like `strcpy` or `sprintf`:
+* Security sensitive fuctions, like `strcpy` or `sprintf`  
   [S5801](https://rules.sonarsource.com/cpp/RSPEC-5801/): Using `strcpy` or `wcscpy` is security-sensitive.
-* Appropriate file-access permissions:
+* Appropriate file-access permissions  
   [S2612](https://rules.sonarsource.com/cpp/RSPEC-2612/): Setting loose POSIX file permissions is security-sensitive.
 
 When setting up CI-based analysis,
