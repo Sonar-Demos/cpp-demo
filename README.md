@@ -52,10 +52,10 @@ which allows
 
 ### Build Dependencies
 - Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-- Install [cmake](https://cmake.org/install/), if building with cmake
-- Install libjson-c-dev, required by server target
-- Install qtdeclarative5-dev, required by client target
-- Install libpoppler-qt5-dev, required by client target
+- Install [CMake](https://cmake.org/install/), if building with CMake
+- Install libjson-c-dev, required by the `server` target
+- Install qtdeclarative5-dev, required by the `client` target
+- Install libpoppler-qt5-dev, required by the `client` target
 
 ### Building with CMake
 ```shell
@@ -131,13 +131,13 @@ For examples of CI-based analysis on other platforms, see https://github.com/son
   * Enter the name of the secret: `SONAR_TOKEN`
   * Paste the secret from the previous step.
   * Click "Add Secret".
-* Edit "sonar-project.properties" the `enable-ci-analysis` branch.
+* Edit "sonar-project.properties" on the `enable-ci-analysis` branch.
   * You can check it out locally, or edit directly on GitHub:
     (substitute `<your account>` in this link:
     `https://github.com/<your account>/cpp-demo/edit/enable-ci-analysis/sonar-project.properties`)
   * In "sonar-project.properties" change the `sonar.projectKey` and
   `sonar.organization` to use your organization name (your GitHub username).
-* Commit, push, and merge the branch into `main` (careful: select yor fork as the target)
+* Commit, push, and merge the branch into `main` (careful: select your fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
 
 Note that the total number of issues has reduced
@@ -166,9 +166,9 @@ It is also dangerous because it involves executing unknown code.
 
 ![Coverage summary](img/coverage.png)
 
-## 🔍 What you can find in you Sonar report
+## 🔍 What you can find in your Sonar report
 
-Sonar reports variaous kinds of findings.
+Sonar reports various kinds of findings.
 Here is a selection that you can find in this demo project:
 
 ### 🪲 Bugs, 🧀 code smells, 🎯 vulnerabilities
@@ -189,11 +189,11 @@ Or you might discover a bug.
 ### 🌊 A bug with an execution flow
 
 Deep bugs and vulnerabilities are difficult to understand without the execution context.
-An execution flow demonstrates the steps the program could have taken that lead to the bug.
+An execution flow demonstrates the steps the program could have taken that led to the bug.
 
 Once your code is analyzed,
-you can find an example of a bug with an execution flow on the line 831 of serverMain.h.
-Replace the two occurences of `<your account>` with your GitHub account
+you can find an example of a bug with an execution flow on line 831 of serverMain.h.
+Replace the two occurrences of `<your account>` with your GitHub account
 in the following link and navigate to it:
 `https://sonarcloud.io/code?id=<your account>_cpp-demo&selected=<your account>_cpp-demo%3Asrc%2FServer%2FserverMain.h&line=831`
 
@@ -205,7 +205,7 @@ If you click on it, you can see the issue details, including the execution flow 
 
 ![An issue report with an execution flow](img/single-flow-issue.png)
 
-### 🎋 A vulnerability with an execution flow as well as data flows highlighted.
+### 🎋 A vulnerability with an execution flow as well as highlighted data flows.
 
 Some particularly deep bugs and vulnerabilities require more context to understand.
 Sonar provides this context by offering the data flows for values relevant to an issue.
@@ -225,14 +225,14 @@ you will notice multiple accordeons on the left side:
 * A data flow for the buffer argument
 * The execution flow
 
-As you can see, the execution flow in this case is not very informative,
+As you can see, the execution flow, in this case, is not very informative,
 but the data flows allow you to track where the incorrect values of
 a memory buffer and a read length come from.
 
 
 ## 🧹 PR analysis: Clean as You Code
 
-This step requires one of the analysis methods (automatic or CI-based) set-up.
+This step requires one of the analysis methods (automatic or CI-based) set up.
 
 Let us open a pull request:
 * Substitute `<your account>` in two places in this url and navigate to it:
@@ -240,9 +240,9 @@ Let us open a pull request:
 * Click on "Create pull request" twice.
 * Wait until the analysis finishes
   (the yellow circle 🟡 next to the commit hash should appear
-  and turn into a red cross ❌ because quality gate fails).
+  and turn into a red cross ❌ because the quality gate fails).
 
-After a couple of minutes you will see a quality-gate message in your pull request.
+After a couple of minutes, you will see a quality-gate message in your pull request.
 
 ![Quality Gate failed](img/qg-failed.png)
 
@@ -259,8 +259,8 @@ Do not try to fix all the problems in the project.
 
 ## ⚡ SonarLint: Fix issues before they exist
 
-Alongside the CI based analysis, SonarLint allows the detection of most issues directly in the IDE.
-This allows fixing most issues even before they reach the CI check.
+Alongside the CI-based analysis, SonarLint allows the detection of most issues directly in the IDE.
+In this way, you can fix most issues before they even reach the CI check.
 
 Supported IDEs:
  - Visual Studio
