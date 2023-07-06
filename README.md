@@ -299,6 +299,7 @@ Once this is set up, issues raised by SonarLint should appear inside your Proble
 
 Code that triggers the issue will also be highlighted in the editor, and the raised issue can be viewed by hovering over the selection.
 
+serverMain.h:422
 ![VSCode-highlight.png](img/SL/VSCode-highlight.png)
 
 The analysis will be re-triggered automatically whenever a code change is detected.
@@ -320,6 +321,7 @@ Any found issues will appear in the Problems view, but also as part of the dedic
 
 Code that triggers the issue will also be highlighted in the editor, and the raised issue can be viewed by hovering over the selection.
 
+serverMain.h:422
 ![CLion-highlight.png](img/SL/CLion-highlight.png)
 
 The analysis will be re-triggered automatically when a code change is detected.
@@ -348,10 +350,12 @@ Note: SonarLint supports a majority of the rules in the online database, but not
 In both mentioned IDEs, the Rule Description can be directly accessed from the 'Quick Fix' menu in VSCode, and from the 'More Actions' menu in CLion.
 These appear when hovering code raising an issue in the editor, or by selecting the issue in the Problems view
 
+serverMain.h:422
 ![VSCode-open-rpsec.png](img/SL/VSCode-open-rspec.png)
 
 In VSCode, the rule description will open in a separate editor tab
 
+serverMain.h:422
 ![CLion-open-rspec.png](img/SL/CLion-open-rspec.png)
 
 In CLion, the rule description will open in the SonarLint view
@@ -388,10 +392,12 @@ Particular rules also support quickfixes in the IDE. These provide the option to
 In VSCode, a quickfix will appear as the first item
 in the 'Quick Fix' menu
 
+serverMain.h:490
 ![VSCode-quickfix-prompt.png](img/SL/VSCode-quickfix-prompt.png)
 
 In CLion, hovering over an issue that has a quick fix available will provide it as the first option to use
 
+serverMain.h:490
 ![CLion-quickfix-prompt.png](img/SL/CLion-quickfix-prompt.png)
 
 Applying the quickfix in both cases, we get the following:
