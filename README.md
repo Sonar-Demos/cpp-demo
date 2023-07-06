@@ -1,27 +1,3 @@
-# 🪓 Remaining work
-- [X] TODO: SL in VSCode; SL in CLion
-  - Generate compilation database with `Bear make`
-  - "Open folder" in VS Code (with SonarLine plugin installed). auto-configured the compilation DB produced by Bear
-- [X] TODO: quickfix
-- [X] SC autoscan
-  - clone the repository, add it to SonarCloud. the autoscan should start and finish quickly
-- [X] SC CI-based. show the difference
-  - prepare a branch with configured analysis, using build-wrapper.
-    Also mention compilation database.
-  - Show a new issue produced once the branch with analysis is merged and the GH Action finishes.
-  - [X] Coverage generation and import
-- [X] TODO: PR analysis. CaYC
-  - Prepare a PR with different issues.
-    Demonstrate that the quality gate mentions only the the issues on the changed and added code.
-    Explain CaYC
-- [ ] TODO: Bug/Code-Smell/Vulnerability
-  Demonstrate different kinds of findings. Difference between a Bug and a Code-Smell.
-  Special workflow for a vulnerability
-- [ ] TODO: issue with secondaries
-  show the short-cut navigation
-- [X] TODO: single-flow issue
-- [X] TODO: multi-flow issue
-
 # 📜 Storyboard
 
 The goal of this demo is to show the analysis of a C++ application in SonarCloud.
@@ -39,23 +15,28 @@ Once the repository is fully set up, you can observe the concept of PR Quality G
 and its independence from the main code issues.
 The application features basic, yet varied, issue types that can be detected by SonarCloud. In the PR, we have:
 
-TODO: # * A simple bug with no secondary locations
+* A simple bug with no secondary locations  
+  [S935](https://rules.sonarsource.com/cpp/RSPEC-935/): Function exit paths should have appropriate return values.
+* A code-smell with two secondary locations  
+  [S924](https://rules.sonarsource.com/cpp/RSPEC-924/): Loops should not have more than one `break` or `goto` statement.
+* A bug with an execution flow  
+  [S2107](https://rules.sonarsource.com/cpp/RSPEC-2107/): Member variables should be initialized.
+* A bug with multiple flows across files  
+  [S5782](https://rules.sonarsource.com/cpp/RSPEC-5782/): POSIX functions should not be called with arguments that trigger buffer overflows.
+* A "bad practice" code smell  
+  [S5025](https://rules.sonarsource.com/cpp/RSPEC-5025/): Memory should not be managed manually.
+* A stylistic code smell  
+  [S5827](https://rules.sonarsource.com/cpp/RSPEC-5025/): `auto` should be used to avoid repetition of types.
 
-TODO: # * A bug with a secondary location in another file
+Additionally, we have a security hotspots on the `main` branch:
 
-TODO: # * A bug with an execution flow
+* Security sensitive fuctions, like `strcpy` or `sprintf`:
+  [S5801](https://rules.sonarsource.com/cpp/RSPEC-5801/): Using `strcpy` or `wcscpy` is security-sensitive.
+* Appropriate file-access permissions:
+  [S2612](https://rules.sonarsource.com/cpp/RSPEC-2612/): Setting loose POSIX file permissions is security-sensitive.
 
-TODO: # * A bug with multiple flows
-
-TODO: # * A "bad practice" code smell
-
-TODO: # * A stylistic code smell
-
-Additionally, we have a security hotspot on the `main` branch:
-
-TODO: # * ???
-
-When setting up CI-based analysis, import of code coverage will be done by default (in the `enable-ci-analysis` branch).
+When setting up CI-based analysis,
+you will also import of code coverage (in the `enable-ci-analysis` branch).
 
 To demo SonarLint you can also clone this project to show the issues in SonarLint.
 Some of the issues have quick fixes for them.
@@ -163,8 +144,6 @@ Note that the total number of issues has reduced
 because CI-based analysis analyses only the code you compile
 in the configuration that you provide.
 If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
-In particular, in this project, the "src/Client" target is not compiled automatically
-on CI, so it is abscent in the compilation database and concequently not analyzed.
 
 Note also that some issues appeared.
 For example, the code smell: [S1068: Unused "private" fields should be removed](https://rules.sonarsource.com/cpp/RSPEC-1068/).
@@ -192,13 +171,22 @@ It is also dangerous because it involves executing unknown code.
 Sonar reports variaous kinds of findings.
 Here is a selection that you can find in this demo project:
 
-### simpler
+### 🪲 Bugs, 🧀 code smells, 🎯 vulnerabilities
 
-### issues
-### and 
-### bugs
+In the "Issues" tab, you can filter and explore bugs, vulnerabilities, or code smells.
 
-### A bug with an execution flow
+![Bugs, Code Smess, Vulnerabilities](img/bugs-code-smells-vulns.png)
+
+### ♨ Security hotspots
+
+Security hotspots are a special kind of findings that just draw your attention to sensitive code.
+All you need to do is take a second look and make sure you are not committing a common mistake.
+Once you do that, you can change the status of the hotspot and it will not bother you again.
+Or you might discover a bug.
+
+![Security Hotspots](img/hotspots.png)
+
+### 🌊 A bug with an execution flow
 
 Deep bugs and vulnerabilities are difficult to understand without the execution context.
 An execution flow demonstrates the steps the program could have taken that lead to the bug.
@@ -217,7 +205,7 @@ If you click on it, you can see the issue details, including the execution flow 
 
 ![An issue report with an execution flow](img/single-flow-issue.png)
 
-### A vulnerability with an execution flow as well as data flows highlighted.
+### 🎋 A vulnerability with an execution flow as well as data flows highlighted.
 
 Some particularly deep bugs and vulnerabilities require more context to understand.
 Sonar provides this context by offering the data flows for values relevant to an issue.
@@ -410,7 +398,7 @@ Applying the quickfix in both cases, we get the following:
 
 ![CLion-quickfix-result.png](img/SL/CLion-quickfix-result.png)
 
-### 🔌 Synchronize issues between SonarCloud and SonarLint
+### 🔌 Connected mode: synchronize issues between SonarCloud and SonarLint
 
 SonarLint can be connected to a SonarQube/SonarCloud instance for the current project. This is called Connected Mode, and it provides multiple advantages:
 
@@ -418,7 +406,6 @@ SonarLint can be connected to a SonarQube/SonarCloud instance for the current pr
 - Viewing the issues raised by the CI analysis that are not available in SonarLint
 - Viewing and reviewing Security Hotspots
 
-#### Connected Mode
 For this demo, we will be configuring Connected Mode with a SonarCloud instance.
 
 #### VSCode
