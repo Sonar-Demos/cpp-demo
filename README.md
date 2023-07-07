@@ -28,7 +28,7 @@ The application features basic, yet varied, issue types that can be detected by 
 * A stylistic code smell  
   [S5827](https://rules.sonarsource.com/cpp/RSPEC-5025/): `auto` should be used to avoid repetition of types.
 
-Additionally, we have a security hotspot on the `main` branch:
+Additionally, we have security hotspots on the `main` branch:
 
 * Security-sensitive functions, like `strcpy` or `sprintf`  
   [S5801](https://rules.sonarsource.com/cpp/RSPEC-5801/): Using `strcpy` or `wcscpy` is security-sensitive.
@@ -142,7 +142,7 @@ For examples of CI-based analysis on other platforms, see https://github.com/son
 * Commit, push, and merge the branch into `main` (careful: select your fork as the target)
 * After a couple of minutes, you should be able to see the analysis results on SonarCloud
 
-Note that the total number of issues has changed
+Note that the total number of findings has changed
 because CI-based analysis analyses only the code you compile
 in the configuration that you provide.
 If a file is never compiled, it will not be analyzed, unlike with automatic analysis.
@@ -272,7 +272,7 @@ Supported IDEs:
 
 ### ⌨ Visual Studio Code
 
-Sonarlint can be acquired from the Extension Marketplace.
+You can acquire SonarLint from the Extension Marketplace.
 
 ![VSCode-marketplace](img/SL/VSCode-marketplace.png)
 
@@ -290,7 +290,7 @@ Clicking 'Configure compile commands' will enable SonarLint to look for a `compi
 - If one such file is found, SonarLint will automatically select it.
 - If multiple such files are found, you will be able to select the one SonarLint will use.
 
-You can also set the path to `compile_commands.json` manually, by use of the following property:
+You can also set the path to `compile_commands.json` manually in `sonarlint.pathToCompileCommands`:
 
 ```json
 {
@@ -314,8 +314,8 @@ SonarLint will re-analyze your code automatically whenever it detects a code cha
 
 ### 🦭 CLion
 
-SonarLint can be acquired from Settings > Plugins > Marketplace,
-For a complete installation, you will have to restart the IDE after installation.
+You can install SonarLint in Settings > Plugins > Marketplace,
+For a complete installation, you will have to restart the IDE.
 
 ![CLion-marketplace.png](img/SL/CLion-marketplace.png)
 
@@ -356,8 +356,12 @@ Note: SonarLint supports a majority of the rules in the online database, but not
 
 #### From the issue
 
-In both mentioned IDEs, the Rule Description can be directly accessed from the 'Quick Fix' menu in VSCode, and from the 'More Actions' menu in CLion.
-These appear when hovering code raising an issue in the editor, or by selecting the issue in the Problems view,
+In both mentioned IDEs, you can access rule description:
+
+- directly from the 'Quick Fix' menu in VSCode,
+- and from the 'More Actions' menu in CLion.
+
+These menus appear when you hover over the code raising an issue in the editor, or when you select the issue in the Problems view.
 
 serverMain.h:422
 
@@ -394,21 +398,19 @@ Only active rules will raise issues. The checkbox next to the rules in the list 
 
 ### 🪛 Quick Fix
 
-Particular rules also support quick fixes in the IDE. Using these, you can instantly refactor the problematic code into compliant code.
+Some rules also support quick fixes in the IDE. Quick fixes help you refactor the problematic code into compliant code.
+
+For example, take a code smell in serverMain.h on line 490.
 
 In VSCode, a quick fix will appear as the first item in the 'Quick Fix' menu.
-
-serverMain.h:490
 
 ![VSCode-quickfix-prompt.png](img/SL/VSCode-quickfix-prompt.png)
 
 In CLion, a quick fix will appear when hovering over an issue that has a quick fix available.
 
-serverMain.h:490
-
 ![CLion-quickfix-prompt.png](img/SL/CLion-quickfix-prompt.png)
 
-Applying the quick fix in both cases, we get the following:
+Applying the quick fix in both cases, we result in the code change:
 
 ![CLion-quickfix-result.png](img/SL/CLion-quickfix-result.png)
 
@@ -420,7 +422,7 @@ You can connect SonarLint to a SonarQube/SonarCloud instance for the current pro
 - Viewing the issues raised by the CI analysis that are not available in SonarLint.
 - Viewing and reviewing Security Hotspots.
 
-For this demo, we will be configuring Connected Mode with a SonarCloud instance.
+For this demo, we will configure Connected Mode with a SonarCloud instance.
 
 #### ⌨ Visual Studio Code
 
@@ -435,8 +437,7 @@ From this, we will use 'Add SonarCloud Connection':
 The required data can be acquired as follows:
 
 - You can generate a user token by using the 'Generate Token' button. This will redirect you to your SonarCloud account security, where you will be able to create a new token.
-
-![generate-token.png](img/SL/generate-token.png)
+  ![generate-token.png](img/SL/generate-token.png)
 - The organization key is found in the organization where the project in SonarCloud is analyzed.
 
 Once complete, you will have to select the project to bind to:
