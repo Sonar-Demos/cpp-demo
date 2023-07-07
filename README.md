@@ -7,17 +7,17 @@ We start with a legacy application.
 This legacy application contains `main` branch with the existing code.
 It also contains an `add-feature` branch that represents a new feature we want to develop for the application.
 
-The full set-up can either be done as part of the demo (takes about 15 minutes), or beforehand.
+The full set-up can either be done as part of the demo (takes about 7 minutes), or beforehand.
 Branch `enable-ci-analysis` is available to move from Automatic Analysis to a CI-based analysis,
 with the import of code coverage information.
 
-Once the repository is fully set up, you can observe the concept of PR Quality Gate on new code
+Once the repository is fully set up, you can observe the concept of pull-request Quality Gate on new code
 and its independence from the main code issues.
 The application features basic, yet varied, issue types that can be detected by SonarCloud. In the PR, we have:
 
 * A simple bug with no secondary locations  
   [S935](https://rules.sonarsource.com/cpp/RSPEC-935/): Function exit paths should have appropriate return values.
-* A code-smell with two secondary locations  
+* A code smell with two secondary locations  
   [S924](https://rules.sonarsource.com/cpp/RSPEC-924/): Loops should not have more than one `break` or `goto` statement.
 * A bug with an execution flow  
   [S2107](https://rules.sonarsource.com/cpp/RSPEC-2107/): Member variables should be initialized.
@@ -26,7 +26,7 @@ The application features basic, yet varied, issue types that can be detected by 
 * A "bad practice" code smell  
   [S5025](https://rules.sonarsource.com/cpp/RSPEC-5025/): Memory should not be managed manually.
 * A stylistic code smell  
-  [S5827](https://rules.sonarsource.com/cpp/RSPEC-5025/): `auto` should be used to avoid repetition of types.
+  [S5827](https://rules.sonarsource.com/cpp/RSPEC-5827/): `auto` should be used to avoid repetition of types.
 
 Additionally, we have security hotspots on the `main` branch:
 
@@ -75,7 +75,7 @@ make server
 
 ### Running the application
 The executables will be put into the newly created `build` folder
-- `build/server` has to be run before the client
+- `build/server` has to be run concurrently with the client
 - `build/client` is the GUI client interacting with the server
 
 # 📝 Setup instructions
@@ -125,7 +125,7 @@ For examples of CI-based analysis on other platforms, see https://github.com/son
   * Click on your profile picture in the top-right corner and select "My Account".
   * Select the "Security" tab.
   * Enter a token name (e.g. `cpp-demo`), and click on "Generate Token"
-  * Copy the token to clipboard
+  * Copy the token to the clipboard
 * Enter the token to the repository secrets on GitHub
   * Select the ⚙ "Settings" tab of your repository
   * Select the "Secrets and variables"/"Actions" section
@@ -356,7 +356,7 @@ Note: SonarLint supports a majority of the rules in the online database, but not
 
 #### From the issue
 
-In both mentioned IDEs, you can access rule description:
+In both mentioned IDEs, you can access the rule description:
 
 - directly from the 'Quick Fix' menu in VSCode,
 - and from the 'More Actions' menu in CLion.
